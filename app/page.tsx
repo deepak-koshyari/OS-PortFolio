@@ -112,7 +112,7 @@ function DesktopContent() {
           {/* Windows */}
           <div
             className="absolute inset-0"
-            style={{ zIndex: 100, pointerEvents: 'auto' }}
+            style={{ zIndex: 100, pointerEvents: 'none' }}
           >
             <WindowContainer />
           </div>

@@ -20,7 +20,14 @@ const VideoPlayerApp: React.FC = () => {
       setError('');
 
       try {
-        const response = await fetch('/api/videos', { cache: 'no-store' });
+        const cacheBuster = Date.now();
+        const response = await fetch(`/api/videos?ts=${cacheBuster}`, {
+          cache: 'no-store',
+          headers: {
+            'Cache-Control': 'no-cache',
+            Pragma: 'no-cache',
+          },
+        });
         if (!response.ok) {
           throw new Error(`Failed to fetch videos: ${response.status}`);
         }

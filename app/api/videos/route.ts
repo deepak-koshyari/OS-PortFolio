@@ -36,11 +36,27 @@ export async function GET() {
     );
 
     videos.sort((a, b) => b.updatedAtMs - a.updatedAtMs);
-    return NextResponse.json({ videos });
+    return NextResponse.json(
+      { videos },
+      {
+        headers: {
+          'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+          Pragma: 'no-cache',
+          Expires: '0',
+        },
+      }
+    );
   } catch (error) {
     return NextResponse.json(
       { error: `Unable to load videos: ${String(error)}` },
-      { status: 500 }
+      {
+        status: 500,
+        headers: {
+          'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+          Pragma: 'no-cache',
+          Expires: '0',
+        },
+      }
     );
   }
 }
